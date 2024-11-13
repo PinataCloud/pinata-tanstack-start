@@ -10,9 +10,10 @@ export const Route = createFileRoute("/")({
 
 export const uploadFile = createServerFn("POST", async (formData: FormData) => {
 	const pinata = new PinataSDK({
-		pinataJwt: process.env.PINATA_JWT,
+		pinataJwt: import.meta.env.VITE_PINATA_JWT,
 		pinataGateway: "dweb.mypinata.cloud",
 	});
+
 	const file = formData.get("file") as unknown as File;
 	const { cid } = await pinata.upload.file(file);
 	const url = await pinata.gateways.createSignedURL({
