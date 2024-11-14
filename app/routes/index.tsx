@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import { PinataSDK } from "pinata";
 import { useState } from "react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 
 export const Route = createFileRoute("/")({
 	component: Home,
@@ -27,8 +29,9 @@ function Home() {
 	const [url, setUrl] = useState<string>();
 
 	return (
-		<div>
+		<div className="min-h-screen w-full flex flex-col gap-2 items-center justify-center">
 			<form
+				className="flex flex-col gap-2"
 				onSubmit={async (event) => {
 					event.preventDefault();
 					const formData = new FormData(event.target);
@@ -36,10 +39,10 @@ function Home() {
 					setUrl(response);
 				}}
 			>
-				<input type="file" name="file" accept="image/*" />
-				<button type="submit">Submit</button>
+				<Input type="file" name="file" accept="image/*" />
+				<Button type="submit">Submit</Button>
 			</form>
-			{url && <img src={url} alt="img" />}
+			{url && <img className="max-w-[500px]" src={url} alt="img" />}
 		</div>
 	);
 }
